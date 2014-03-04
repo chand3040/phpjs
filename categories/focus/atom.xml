@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: focus | php.js]]></title>
+  <link href="http://phpjs.org/categories/focus/atom.xml" rel="self"/>
+  <link href="http://phpjs.org/"/>
+  <updated>2014-03-04T22:14:16+01:00</updated>
+  <id>http://phpjs.org/</id>
+  <author>
+    <name><![CDATA[Kevin van Zonneveld]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[A Word on the Focus of php.js]]></title>
+    <link href="http://phpjs.org/blog/2013/05/03/a-word-on-the-focus-of-php-dot-js/"/>
+    <updated>2013-05-03T13:18:00+02:00</updated>
+    <id>http://phpjs.org/blog/2013/05/03/a-word-on-the-focus-of-php-dot-js</id>
+    <content type="html"><![CDATA[<p>Hi everybody,</p>
+
+<p>The <a href="/blog/2012/09/26/new-site/">new site</a> has no server-side code. Instead
+we generate HTML <a href="http://kvz.io/blog/2012/09/25/blog-with-octopress/">using Octopress</a>
+and push to GitHub Pages, all from one <a href="https://github.com/kvz/phpjs">repository</a>.</p>
+
+<p>This saves hosting costs/overhead and makes it really easy for people to submit
+pull requests and for <a href="https://github.com/kvz/phpjs/contributors">contributors</a>
+to make changes that I don't always have time
+for. It makes the project less dependent on me and more a community effort.</p>
+
+<p>To move forward, sometimes you have to cut features.
+In this case I had to lose our compiler, a webtool that relied on server-side code
+to generate minified packages from php.js functions.</p>
+
+<p>Understandibly this has <a href="https://github.com/kvz/phpjs/issues/75">raised</a>
+<a href="http://phpjs.org/about/index.html#comment-861825612">questions</a>.
+It is still possible to bundle 4 useful functions:</p>
+
+<p>```bash</p>
+
+<h1>- Note that this combined 4 php.js functions into a file called: myphp.js</h1>
+
+<h1>and minified version: myphp.min.js in the current directory.</h1>
+
+<h1>- Note that this throws all functions into the</h1>
+
+<h1>global scope. It would be better to put them in a dedicated phpjs object.</h1>
+
+<p>curl -sk https://raw.github.com/kvz/phpjs/31bf3129f08672f8c1d6d0dcad2368ebc4ac57f2/functions/\
+{datetime/date\
+,datetime/strtotime\
+,strings/md5\
+,strings/vsprintf\
+}.js |tee ./myphp.js &amp;&amp; \
+curl -vo ./myphp.min.js \</p>
+
+<pre><code>-X POST \
+-H 'Expect: ' \
+--data-urlencode compilation_level="SIMPLE_OPTIMIZATIONS" \
+--data-urlencode output_format="text" \
+--data-urlencode output_info="compiled_code" \
+--data-urlencode js_code@myphp.js \
+http://closure-compiler.appspot.com/compile
+</code></pre>
+
+<p>```</p>
+
+<p>but some people think php.js should bundle all of it's functions into one big file:</p>
+
+<blockquote><p>Not providing an all-in-one, downloadable, minified, ready-to-use
+.js file is going to kill php.js.
+You've abandoned windows users, and really any non-CLI junkie.
+While I am capable of compiling this myself, what a headache.
+You've introduced a barrier-to-entry that didn't exist before,
+and by not existing, allowed for the following you now have.
+I <em>highly</em> suggest that you have this available for download,
+either here or on github, such that you can keep (and maintain)
+the momentum you worked so hard for.</p></blockquote>
+
+<p>I'd like to comment on that here. While I appreciate the sentiment, wether the
+project is being killed by these changes depends on how you look at php.js.
+To me, php.js is a resource:</p>
+
+<ul>
+<li>For PHP developers that want see how it's done in JavaScript</li>
+<li>That enables fun experiments</li>
+<li>With a few higher level functions that are incredibly useful, and missing in JavaScript</li>
+</ul>
+
+
+<p>This is what I feel php.js should focus on. Making functions. Making them better.</p>
+
+<p>If - on the other hand - you think of php.js as a</p>
+
+<ul>
+<li>2.1MB, 451-function, ready-to-rock spaceship that you can plug into your website so you can keep typing PHP client-side, not caring about learning JavaScript or how that extra weight might impact the user experience</li>
+</ul>
+
+
+<p>..then yes, <em>these changes are going to kill php.js</em>.</p>
+
+<p>I have limited time to spend on open source, and I want to spend it on things I enjoy and can believe in.
+Not on working to support use-cases that keep new developers from learning, or make the web slower.
+I'm sorry if this upsets folks but it really is my free time.</p>
+
+<p>Luckily though for people with different views, I released php.js under MIT so
+it's cool for anybody to fork this project and run with it.</p>
+
+<p>If anything, knowing that the php.js repository will focus on the raw <code>./functions</code>
+makes this easier.</p>
+
+<p>Best wishes,</p>
+
+<p><a href="http://twitter.com/kvz">Kevin</a></p>
+]]></content>
+  </entry>
+  
+</feed>

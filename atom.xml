@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[php.js]]></title>
+  <link href="http://phpjs.org/atom.xml" rel="self"/>
+  <link href="http://phpjs.org/"/>
+  <updated>2014-03-04T22:14:16+01:00</updated>
+  <id>http://phpjs.org/</id>
+  <author>
+    <name><![CDATA[Kevin van Zonneveld]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Coding Style]]></title>
+    <link href="http://phpjs.org/blog/2013/05/04/coding-style/"/>
+    <updated>2013-05-04T18:01:00+02:00</updated>
+    <id>http://phpjs.org/blog/2013/05/04/coding-style</id>
+    <content type="html"><![CDATA[<p>Given <a href="http://phpjs.org/blog/2013/05/03/a-word-on-the-focus-of-php-dot-js/">the focus of php.js</a> I think
+we should re-invent as few wheels as possible and make use of sensible tools
+and standards that are other people have already invested a great deal of time
+in to get right.</p>
+
+<p>In this light, I&#8217;ve decided to adopt <a href="http://nodeguide.com/style.html">Felix&#8217; Node.js Style Guide</a>
+for coding standards, instead of running our own.</p>
+
+<p>It saves us time maintaining and it becomes easier for people to contribute because
+they don&#8217;t have to memorize where php.js diverges.</p>
+
+<p>For the big parts our codebase is already compatible with it, so
+we won&#8217;t get any weird <a href="http://www.emacswiki.org/pics/static/TabsSpacesBoth.png">space + tab</a> indentations as a result, as we start adding code that follows the guide.</p>
+
+<p>Going forward, contributions should comply with these conventions before being
+merged in.</p>
+
+<p>Best wishes,</p>
+
+<p><a href="http://twitter.com/kvz">Kevin</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A Word on the Focus of php.js]]></title>
+    <link href="http://phpjs.org/blog/2013/05/03/a-word-on-the-focus-of-php-dot-js/"/>
+    <updated>2013-05-03T13:18:00+02:00</updated>
+    <id>http://phpjs.org/blog/2013/05/03/a-word-on-the-focus-of-php-dot-js</id>
+    <content type="html"><![CDATA[<p>Hi everybody,</p>
+
+<p>The <a href="http://phpjs.org/blog/2012/09/26/new-site/">new site</a> has no server-side code. Instead
+we generate HTML <a href="http://kvz.io/blog/2012/09/25/blog-with-octopress/">using Octopress</a>
+and push to GitHub Pages, all from one <a href="https://github.com/kvz/phpjs">repository</a>.</p>
+
+<p>This saves hosting costs/overhead and makes it really easy for people to submit
+pull requests and for <a href="https://github.com/kvz/phpjs/contributors">contributors</a>
+to make changes that I don&#8217;t always have time
+for. It makes the project less dependent on me and more a community effort.</p>
+
+<p>To move forward, sometimes you have to cut features.
+In this case I had to lose our compiler, a webtool that relied on server-side code
+to generate minified packages from php.js functions.</p>
+
+<p>Understandibly this has <a href="https://github.com/kvz/phpjs/issues/75">raised</a>
+<a href="http://phpjs.org/about/index.html#comment-861825612">questions</a>.
+It is still possible to bundle 4 useful functions:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c"># - Note that this combined 4 php.js functions into a file called: myphp.js</span>
+</span><span class='line'><span class="c"># and minified version: myphp.min.js in the current directory.</span>
+</span><span class='line'><span class="c"># - Note that this throws all functions into the</span>
+</span><span class='line'><span class="c"># global scope. It would be better to put them in a dedicated phpjs object.</span>
+</span><span class='line'>curl -sk https://raw.github.com/kvz/phpjs/31bf3129f08672f8c1d6d0dcad2368ebc4ac57f2/functions/<span class="se">\</span>
+</span><span class='line'><span class="o">{</span>datetime/date<span class="se">\</span>
+</span><span class='line'>,datetime/strtotime<span class="se">\</span>
+</span><span class='line'>,strings/md5<span class="se">\</span>
+</span><span class='line'>,strings/vsprintf<span class="se">\</span>
+</span><span class='line'><span class="o">}</span>.js |tee ./myphp.js <span class="o">&amp;&amp;</span> <span class="se">\</span>
+</span><span class='line'>curl -vo ./myphp.min.js <span class="se">\</span>
+</span><span class='line'>    -X POST <span class="se">\</span>
+</span><span class='line'>    -H <span class="s1">&#39;Expect: &#39;</span> <span class="se">\</span>
+</span><span class='line'>    --data-urlencode <span class="nv">compilation_level</span><span class="o">=</span><span class="s2">&quot;SIMPLE_OPTIMIZATIONS&quot;</span> <span class="se">\</span>
+</span><span class='line'>    --data-urlencode <span class="nv">output_format</span><span class="o">=</span><span class="s2">&quot;text&quot;</span> <span class="se">\</span>
+</span><span class='line'>    --data-urlencode <span class="nv">output_info</span><span class="o">=</span><span class="s2">&quot;compiled_code&quot;</span> <span class="se">\</span>
+</span><span class='line'>    --data-urlencode js_code@myphp.js <span class="se">\</span>
+</span><span class='line'>    http://closure-compiler.appspot.com/compile
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>but some people think php.js should bundle all of it&#8217;s functions into one big file:</p>
+
+<blockquote><p>Not providing an all-in-one, downloadable, minified, ready-to-use
+.js file is going to kill php.js.
+You&#8217;ve abandoned windows users, and really any non-CLI junkie.
+While I am capable of compiling this myself, what a headache.
+You&#8217;ve introduced a barrier-to-entry that didn&#8217;t exist before,
+and by not existing, allowed for the following you now have.
+I <em>highly</em> suggest that you have this available for download,
+either here or on github, such that you can keep (and maintain)
+the momentum you worked so hard for.</p></blockquote>
+
+<p>I&#8217;d like to comment on that here. While I appreciate the sentiment, wether the
+project is being killed by these changes depends on how you look at php.js.
+To me, php.js is a resource:</p>
+
+<ul>
+<li>For PHP developers that want see how it&#8217;s done in JavaScript</li>
+<li>That enables fun experiments</li>
+<li>With a few higher level functions that are incredibly useful, and missing in JavaScript</li>
+</ul>
+
+
+<p>This is what I feel php.js should focus on. Making functions. Making them better.</p>
+
+<p>If - on the other hand - you think of php.js as a</p>
+
+<ul>
+<li>2.1MB, 451-function, ready-to-rock spaceship that you can plug into your website so you can keep typing PHP client-side, not caring about learning JavaScript or how that extra weight might impact the user experience</li>
+</ul>
+
+
+<p>..then yes, <em>these changes are going to kill php.js</em>.</p>
+
+<p>I have limited time to spend on open source, and I want to spend it on things I enjoy and can believe in.
+Not on working to support use-cases that keep new developers from learning, or make the web slower.
+I&#8217;m sorry if this upsets folks but it really is my free time.</p>
+
+<p>Luckily though for people with different views, I released php.js under MIT so
+it&#8217;s cool for anybody to fork this project and run with it.</p>
+
+<p>If anything, knowing that the php.js repository will focus on the raw <code>./functions</code>
+makes this easier.</p>
+
+<p>Best wishes,</p>
+
+<p><a href="http://twitter.com/kvz">Kevin</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[New Site]]></title>
+    <link href="http://phpjs.org/blog/2012/09/26/new-site/"/>
+    <updated>2012-09-26T17:39:00+02:00</updated>
+    <id>http://phpjs.org/blog/2012/09/26/new-site</id>
+    <content type="html"><![CDATA[<p>Hi everybody,</p>
+
+<p>Welcome to our new site.
+The old one had a lot of dead weight that nobody used and was basically unmaintained.</p>
+
+<p>This one is generated by Octopress as plain html, and then stored on Github pages.</p>
+
+<p>The source to do that is inside the php.js directory in the <code>_octopress</code> dir,
+and freely available.</p>
+
+<p>For instance, you can now very easily:</p>
+
+<ul>
+<li><a href="https://github.com/kvz/phpjs/edit/master/_octopress/source/about/index.markdown">edit the about page</a></li>
+<li><a href="https://github.com/kvz/phpjs/edit/master/_octopress/source/_posts/2012-09-26-new-site.markdown">change this blog post</a></li>
+<li><a href="https://github.com/kvz/phpjs/blob/master/_octopress/source/_includes/custom/navigation.html">checkout the navigation</a></li>
+<li><a href="https://github.com/kvz/phpjs/blob/master/_octopress/Rakefile#L30">improve the way function pages are built</a></li>
+</ul>
+
+
+<p>Next, any <a href="https://github.com/kvz/phpjs/graphs/contributors">php.js contributor</a>
+who has <a href="http://kvz.io/blog/2012/09/25/blog-with-octopress/">Octopress set up</a>
+(this mostly involves having the right ruby &amp; gem versions) can then run
+<code>make site MSG="describe what you did"</code> in the
+project&#8217;s root dir to deploy the changes.</p>
+
+<p>This should make it easy for <a href="https://github.com/kvz/phpjs/graphs/contributors">php.js contributors</a>
+(or any Github user really, using pull requests)
+to update the site, making it less dependent on few core members, and more a
+community effort.</p>
+
+<p>This is also the way I want to do regular php.js development. Less via comments,
+more via the power of Github.</p>
+
+<p>To people wondering where the compiler has gone to, I&#8217;m discontinuing that feature.
+It was more often broken then working, and I think this site should focus on
+being a simple resource and discussion platform, and not much else.</p>
+
+<p>Now that everything is open sourced more I think there&#8217;s room for anyone to build
+a better alternative.</p>
+
+<p>While I&#8217;m not actively involved with php.js anymore, I hope taking this step will
+make the project ready for the future.</p>
+
+<p>Best wishes,</p>
+
+<p><a href="http://twitter.com/kvz">Kevin</a></p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: convention | php.js]]></title>
+  <link href="http://phpjs.org/categories/convention/atom.xml" rel="self"/>
+  <link href="http://phpjs.org/"/>
+  <updated>2014-03-04T22:14:16+01:00</updated>
+  <id>http://phpjs.org/</id>
+  <author>
+    <name><![CDATA[Kevin van Zonneveld]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Coding Style]]></title>
+    <link href="http://phpjs.org/blog/2013/05/04/coding-style/"/>
+    <updated>2013-05-04T18:01:00+02:00</updated>
+    <id>http://phpjs.org/blog/2013/05/04/coding-style</id>
+    <content type="html"><![CDATA[<p>Given <a href="/blog/2013/05/03/a-word-on-the-focus-of-php-dot-js/">the focus of php.js</a> I think
+we should re-invent as few wheels as possible and make use of sensible tools
+and standards that are other people have already invested a great deal of time
+in to get right.</p>
+
+<p>In this light, I've decided to adopt <a href="http://nodeguide.com/style.html">Felix' Node.js Style Guide</a>
+for coding standards, instead of running our own.</p>
+
+<p>It saves us time maintaining and it becomes easier for people to contribute because
+they don't have to memorize where php.js diverges.</p>
+
+<p>For the big parts our codebase is already compatible with it, so
+we won't get any weird <a href="http://www.emacswiki.org/pics/static/TabsSpacesBoth.png">space + tab</a> indentations as a result, as we start adding code that follows the guide.</p>
+
+<p>Going forward, contributions should comply with these conventions before being
+merged in.</p>
+
+<p>Best wishes,</p>
+
+<p><a href="http://twitter.com/kvz">Kevin</a></p>
+]]></content>
+  </entry>
+  
+</feed>
